@@ -1,4 +1,4 @@
-import { router } from "express";
+import { Router } from "express";
 import { isAuthenticated } from "../middlewares/auth.middleware.js";
 import {
   getMessages,
@@ -8,7 +8,7 @@ import {
 
 const router = Router();
 
-router.get("/users", isAuthenticated);
+router.get("/users", isAuthenticated, getUsers);
 router.get("/:id", isAuthenticated, getMessages);
 router.post("/send", isAuthenticated, sendMessage);
 
