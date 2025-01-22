@@ -10,6 +10,6 @@ const router = Router();
 
 router.get("/users", isAuthenticated, getUsers);
 router.get("/:id", isAuthenticated, getMessages);
-router.post("/send", isAuthenticated, sendMessage);
+router.post("/send/:id", isAuthenticated, sendMessage);
 
 export default router;

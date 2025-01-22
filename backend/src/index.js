@@ -20,7 +20,7 @@ app.use(
 
 // Routes
 app.use("/api/v1/auth", authRoutes);
-app.use("/api/v1/message", messageRoutes);
+app.use("/api/v1/messages", messageRoutes);
 
 const PORT = process.env.PORT || 3000;
 

@@ -1,5 +1,6 @@
 import Message from "../models/message.model.js";
 import User from "../models/user.model.js";
+import { v2 as cloudinary } from "cloudinary";
 
 export const getUsers = async (req, res) => {
   try {
@@ -38,17 +39,26 @@ export const sendMessage = async (req, res) => {
     const { text, image } = req.body;
     const senderId = req.user._id;
     const receiverId = req.params.id;
+
+    cloudinary.config({
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET,
+    });
+
     let imageUrl;
     if (image) {
       const uploadResponse = await cloudinary.uploader.upload(image);
       imageUrl = uploadResponse.secure_url;
     }
+
     const newMessage = new Message({
       senderId,
       receiverId,
       text,
       image: imageUrl,
     });
+    console.log(newMessage);
     await newMessage.save();
 
     // Send the new message to the receiver using socket.io
